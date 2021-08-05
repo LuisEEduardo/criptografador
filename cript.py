@@ -1,36 +1,19 @@
-from cryptography.fernet import Fernet
+from cryptography.fernet import Fernet 
 
-# Gerando a chave
-chave = Fernet.generate_key()
 
-# Converte a chave para um objeto cryptography.fernet.Fernet
-cifrador = Fernet(chave)
+def gerar_chave(): 
+    chave = Fernet.generate_key()
+    return chave
 
-# Abrindo o arquivo texto 
-nome_arquivo = "./texto.txt"
-ref_arquivo = open(nome_arquivo, "r")
-texto = ref_arquivo.read()
-ref_arquivo.close() 
 
-# Criptografando o arquivo 
-texto_cript = cifrador.encrypt(texto.encode())
-# print(texto_cript)
+def encriptando(texto): 
+    key = gerar_chave()
+    cipher_suite = Fernet(key)
+    texto_encrypt = cipher_suite.encrypt(texto.encode())
+    return key, texto_encrypt
 
-# Reescrevendo o arquivo agora criptografado
-nome_arquivo = "./texto.txt"
-ref_arquivo = open(nome_arquivo, 'wb')
-escrevendo = ref_arquivo.write(texto_cript)
-ref_arquivo.close()
 
-# Descriptografando o arquivo 
-texto_decript = cifrador.decrypt(texto_cript)
-# print(texto_decript)
+texto = input("Insira o texto: ")
+c, t = encriptando(texto)
 
-# Abrindo o arquivo e descriptografando ele  
-nome_arquivo = "./texto.txt"
-ref_arquivo = open(nome_arquivo, 'rb')
-texto = ref_arquivo.read()
-ref_arquivo.close()
-
-texto_decript = cifrador.decrypt(texto)
-print(texto)
+print(f"A sua chave é: {c}\nO seu texto encriptado: {t}")
