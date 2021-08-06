@@ -13,7 +13,7 @@ def encriptando():
     texto_encrypt = cipher_suite.encrypt(t.encode())
     if opcao == 2: 
         file = open(n, "wb")
-        file.read(texto_encrypt)
+        file.write(texto_encrypt)
         file.close()
     return key, texto_encrypt
 
