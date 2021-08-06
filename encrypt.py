@@ -12,10 +12,14 @@ def encriptando():
     cipher_suite = Fernet(key)
     texto_encrypt = cipher_suite.encrypt(t.encode())
     if opcao == 2: 
-        file = open(n, "wb")
-        file.write(texto_encrypt)
-        file.close()
+        escrevendo(texto=texto_encrypt, caminho=n)
     return key, texto_encrypt
+
+
+def escrevendo(texto, caminho): 
+    file = open(caminho, 'wb')
+    file.write(texto)
+    file.close()
 
 
 def texto(): 
