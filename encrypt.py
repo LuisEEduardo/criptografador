@@ -1,6 +1,11 @@
 from cryptography.fernet import Fernet 
 
 
+def clean():
+    import os 
+    os.system('cls' if os.name == "nt" else "clear")
+
+
 def gerar_chave(): 
     chave = Fernet.generate_key()
     return chave
@@ -22,26 +27,30 @@ def escrevendo(texto, caminho):
     file.close()
 
 
+def ler_arquivo(): 
+    nome_arquivo = input("\nInsira o caminho do arquivo: ")
+    file = open(nome_arquivo, 'r')
+    arquivo_ref = file.read()
+    file.close()
+    return nome_arquivo, arquivo_ref
+
+
 def texto(): 
-    print("""
-    Opções: 
-    1 - Para inserir o texto
-    2 - Para colocar o caminho do arquivo .txt
-    """)
+    clean()
+    print("Opções: \n1 - Para inserir o texto \n2 - Para colocar o caminho do arquivo .txt")
     op = int(input('Insira a opção: '))
     nome_arquivo = "sem"
     if op == 1: 
-        texto = input('Insira o texto: ')
+        texto = input('\nInsira o texto: ')
         return texto, op, nome_arquivo 
     elif op == 2: 
-        nome_arquivo = input("Insira o caminho do arquivo: ")
-        file = open(nome_arquivo, 'r')
-        arquivo_ref = file.read()
-        file.close()
-        return arquivo_ref, op, nome_arquivo
+        nome_arquivo, texto = ler_arquivo()
+        return texto, op, nome_arquivo
     else: 
         print("Error")
 
+
 c, t = encriptando()
 
+clean()
 print(f"A sua chave é: {c}\nO seu texto encriptado: {t}")
